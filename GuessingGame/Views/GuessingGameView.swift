@@ -12,7 +12,7 @@ struct GuessingGameView: View {
     // MARK: Stored properties
     
     // The input collected from the Slider
-    @State var guess: Double = 0
+    @State var guess: Double = 2
     
     // The secret target that the user is trying to guess
     @State var target = Int.random(in: 0...100)
