@@ -12,7 +12,7 @@ struct GuessingGameView: View {
     // MARK: Stored properties
     
     // The input collected from the Slider
-    @State var guess: Double = 2
+    @State var guess = ""
     
     // The secret target that the user is trying to guess
     @State var target = Int.random(in: 0...100)
@@ -26,16 +26,20 @@ struct GuessingGameView: View {
         VStack {
             
             // Collect the user's input using a Slider
-            Slider(value: $guess, in: 0...100, label: { Text("choose your number")}, minimumValueLabel: {Text("0")}, maximumValueLabel: {Text("100")})
-            
+            TextField("Enter a number", text: $guess)
+                .font(.title2)
             // Show the user's input to them using a Text view
-            Text("\(guess.formatted(.number.precision(.fractionLength(0))))")
+            
             
             // Let the user check to see if their current guess is correct
             Button(action: {
                 
                 // Convert the user's input, which is a Double, into an Int
-                let guessAsInteger = Int(guess)
+                guard let guessAsInteger = Int(guess) else {
+                                   feedback = "Please enter a integer between 1 and 100"
+                                   return
+                               }
+                
                 
                 // Compare the user's guess to the target and give appropriate feedback
                 if guessAsInteger < target{
